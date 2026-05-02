@@ -25,7 +25,7 @@ class QuizActivity : ComponentActivity() {
     }
 }
 
-/* 🟠 ORANGE THEME (EASY TO CHANGE LATER) */
+/* 🟠 THEME COLORS (CHANGE HERE IF YOU WANT NEW DESIGN) */
 val darkOrange = Color(0xFFFF6F00)
 val lightOrange = Color(0xFFFFE0B2)
 val cardWhite = Color.White
@@ -46,6 +46,7 @@ fun QuizScreen() {
     var currentIndex by remember { mutableStateOf(0) }
     var score by remember { mutableStateOf(0) }
     var feedback by remember { mutableStateOf("") }
+    var isFinished by remember { mutableStateOf(false) }
 
     val currentQuestion = questions[currentIndex]
     val totalQuestions = questions.size
@@ -59,7 +60,7 @@ fun QuizScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        /* 🟠 TITLE */
+        /* TITLE */
         Text(
             text = "Hack or Myth Quiz",
             fontSize = 28.sp,
@@ -69,7 +70,7 @@ fun QuizScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        /* 🟠 QUESTION BOX */
+        /* QUESTION CARD */
         Card(
             colors = CardDefaults.cardColors(containerColor = cardWhite),
             modifier = Modifier.fillMaxWidth()
@@ -84,7 +85,7 @@ fun QuizScreen() {
 
         Spacer(modifier = Modifier.height(25.dp))
 
-        /* 🟠 HACK + MYTH BUTTONS SIDE BY SIDE */
+        /* HACK + MYTH BUTTONS */
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -92,11 +93,13 @@ fun QuizScreen() {
 
             Button(
                 onClick = {
-                    if (currentQuestion.second) {
-                        score++
-                        feedback = "Correct! It's a Hack."
-                    } else {
-                        feedback = "Wrong! It's a Myth."
+                    if (!isFinished) {
+                        if (currentQuestion.second) {
+                            score++
+                            feedback = "Correct! It's a Hack."
+                        } else {
+                            feedback = "Wrong! It's a Myth."
+                        }
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = darkOrange),
@@ -107,11 +110,13 @@ fun QuizScreen() {
 
             Button(
                 onClick = {
-                    if (!currentQuestion.second) {
-                        score++
-                        feedback = "Correct! It's a Myth."
-                    } else {
-                        feedback = "Wrong! It's a Hack."
+                    if (!isFinished) {
+                        if (!currentQuestion.second) {
+                            score++
+                            feedback = "Correct! It's a Myth."
+                        } else {
+                            feedback = "Wrong! It's a Hack."
+                        }
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = darkOrange),
@@ -123,7 +128,7 @@ fun QuizScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        /* 🟠 FEEDBACK */
+        /* FEEDBACK */
         Text(
             text = feedback,
             fontSize = 18.sp,
@@ -132,13 +137,14 @@ fun QuizScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        /* 🟠 NEXT BUTTON */
+        /* NEXT BUTTON */
         Button(
             onClick = {
                 if (currentIndex < totalQuestions - 1) {
                     currentIndex++
                     feedback = ""
                 } else {
+                    isFinished = true
                     feedback = "Quiz Finished!"
                 }
             },
@@ -150,12 +156,31 @@ fun QuizScreen() {
 
         Spacer(modifier = Modifier.height(25.dp))
 
-        /* 🟠 SCORE DISPLAY */
+        /* SCORE DISPLAY */
         Text(
             text = "Score: $score / $totalQuestions",
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = darkOrange
         )
+
+        /* RESTART BUTTON (ONLY SHOWS AT END) */
+        if (isFinished) {
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(
+                onClick = {
+                    currentIndex = 0
+                    score = 0
+                    feedback = ""
+                    isFinished = false
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = darkOrange),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Restart Quiz", fontSize = 18.sp)
+            }
+        }
     }
 }
