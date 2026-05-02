@@ -6,11 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,16 +23,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WelcomeScreen {
+                // Navigate to Quiz Page
                 startActivity(Intent(this, QuizActivity::class.java))
             }
         }
     }
 }
-
-/* 🟠 SAME ORANGE THEME (CONSISTENCY FOR MARKS) */
-val darkOrange = Color(0xFFFF6F00)
-val lightOrange = Color(0xFFFFE0B2)
-val white = Color.White
 
 @Composable
 fun WelcomeScreen(onStartClick: () -> Unit) {
@@ -39,50 +36,51 @@ fun WelcomeScreen(onStartClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(lightOrange)
-            .padding(20.dp),
+            .background(lightOrange) // from Theme.kt
+            .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        /* 🟠 SIMPLE DESIGN PATTERN (TOP DECOR BAR) */
+        // Top design bar (simple pattern)
         Box(
             modifier = Modifier
-                .size(width = 200.dp, height = 10.dp)
+                .width(200.dp)
+                .height(10.dp)
                 .background(darkOrange)
         )
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        /* TITLE */
+        // Title
         Text(
             text = "Hack or Myth",
-            fontSize = 34.sp,
+            fontSize = 36.sp,
             fontWeight = FontWeight.Bold,
             color = darkOrange
         )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        /* SUBTITLE */
+        // Subtitle
         Text(
-            text = "Test real life hacks vs internet myths",
+            text = "Test real-life hacks vs internet myths",
             fontSize = 18.sp,
             color = darkOrange
         )
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        /* START BUTTON */
+        // Start Button
         Button(
             onClick = onStartClick,
             colors = ButtonDefaults.buttonColors(containerColor = darkOrange),
             modifier = Modifier
                 .width(200.dp)
-                .height(50.dp)
+                .height(55.dp)
         ) {
             Text(
-                text = "Start",
+                text = "Play",
                 fontSize = 18.sp,
                 color = white
             )
@@ -90,10 +88,11 @@ fun WelcomeScreen(onStartClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        /* 🟠 SIMPLE DESIGN PATTERN (BOTTOM BAR) */
+        // Bottom design bar
         Box(
             modifier = Modifier
-                .size(width = 150.dp, height = 10.dp)
+                .width(150.dp)
+                .height(10.dp)
                 .background(darkOrange)
         )
     }
