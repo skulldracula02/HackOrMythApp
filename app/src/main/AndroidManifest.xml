@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HackOrMythApp">
+
+        <activity
+            android:name=".ReviewActivity"
+            android:exported="false" />
         <activity
             android:name=".QuizActivity"
             android:exported="false" />

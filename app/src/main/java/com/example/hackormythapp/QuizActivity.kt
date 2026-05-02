@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
 
 class QuizActivity : ComponentActivity() {
 
@@ -196,6 +197,20 @@ fun QuizScreen(onRestart: () -> Unit) {
             ) {
                 Text("Restart", color = white)
             }
+
+            // REVIEW BUTTON
+            val context = LocalContext.current
+
+            Button(
+                onClick = {
+                    val intent = Intent(context, ReviewActivity::class.java)
+                    context.startActivity(intent)
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = darkOrange),
+                modifier = Modifier.padding(top = 10.dp)
+            ) {
+                Text("Review Answers", color = white)
+            }
         }
     }
-}
+}    
