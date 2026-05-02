@@ -54,8 +54,8 @@ GitHub Actions was used to perform basic checks to ensure the project builds cor
 
 ## Video Demonstration
 
-
+---
 ## Author
 
 Student Name: Clement Makgae
-Student Number: ST10481162
+Student Number: ST10506757
